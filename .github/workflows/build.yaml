@@ -3,9 +3,8 @@ name: Deploy to Railway
 on:
   push:
     branches: 
-    - release
-    tags:
-    - 'v1.2'
+    - 'release/v[0-9].[0-9]'
+
 
 jobs:
   deploy:
