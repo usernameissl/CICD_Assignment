@@ -11,8 +11,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-steps:
-- name: Deploy
+    steps:
+      - name: Deploy
         run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
