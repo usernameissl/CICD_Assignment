@@ -30,7 +30,7 @@ jobs:
       run: echo "REPO_URL=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
 
     - name: Get deployment URL
-      run: echo "DEPLOYMENT_URL=$(up url -n <delicate-lumber>)" >> $GITHUB_ENV
+      run: echo "DEPLOYMENT_URL=$(up url -n <delicate-lumber>)" >> $GITHUB_ENV1
 
     - name: Send custom JSON data to Slack workflow
       id: slack
