@@ -64,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Deployment URL:* https://${{ env.DEPLOYMENT_URL }}"
+                  "text": "*Deployment URL:* ${{ env.DEPLOYMENT_URL }}"
                 },
                 "accessory": {
                   "type": "button",
@@ -74,7 +74,7 @@ jobs:
                     "emoji": true
                   },
                   "value": "click_me_123",
-                  "url": "https://${{ env.DEPLOYMENT_URL }}",
+                  "url": "${{ env.DEPLOYMENT_URL }}",
                   "action_id": "button-action"
                 }
               }
