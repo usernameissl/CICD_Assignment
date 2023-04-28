@@ -1,6 +1,5 @@
 name: Deploy to Railway
 
-if: !startsWith(github.event.head_commit.message, '#NORUN')
 on:
   push:
     branches: 
@@ -9,8 +8,8 @@ on:
 
 jobs:
   deploy:
+    if: !startsWith(github.event.head_commit.message, '#NORUN')
     runs-on: ubuntu-latest
-
     steps:
     - name: Railway Deploy
       uses: bervProject/railway-deploy@main
