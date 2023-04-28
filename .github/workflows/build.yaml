@@ -14,11 +14,11 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v3
 
-    - name: Install application dependencies
-      run: npm ci
+    # - name: Install application dependencies
+    #   run: npm ci
 
-    - name: Build
-      run: npm run build
+    # - name: Build
+    #   run: npm run build
 
     - name: Railway Deploy
       uses: bervProject/railway-deploy@main
@@ -31,7 +31,7 @@ jobs:
 
     - name: Get deployment URL
       run: echo "DEPLOYMENT_URL=$(up url -n <your_railway_service_name>)" >> $GITHUB_ENV
-      
+
     - name: Send custom JSON data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
