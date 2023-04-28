@@ -14,30 +14,23 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v3
 
-    # - name: Install application dependencies
-    #   run: npm ci
-
-    # - name: Build
-    #   run: npm run build
-
     - name: Railway Deploy
       uses: bervProject/railway-deploy@main
       with:
         railway_token: ${{ secrets.RAILWAY_TOKEN }}
         service: "delicate-lumber"
-
-    - name: Get repository URL
-      run: echo "REPO_URL=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
-
+        
     - name: Get deployment URL
-      run: echo "DEPLOYMENT_URL=$(up url -n delicate-lumber)" >> $GITHUB_ENV1
+      run: echo "DEPLOYMENT_URL=$(up url -n delicate-lumber )" >> $GITHUB_ENV
 
     - name: Send custom JSON data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
+        # For posting a rich message using Block Kit
         payload: |
           {
+            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
             "blocks": [
               {
                 "type": "header",
@@ -64,7 +57,11 @@ jobs:
                   },
                   {
                     "type": "mrkdwn",
-                    "text": "*Repository:* \n $REPO_URL"
+                    "text": "*Repository:* \n https://github.com/${{ github.repository }}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Deployment URL:* \n https://${{ env.DEPLOYMENT_URL }}"
                   }
                 ]
               },
@@ -72,24 +69,17 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "$DEPLOYMENT_URL"
-                },
-                "accessory": {
-                  "type": "button",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Go",
-                    "emoji": true
-                  },
-                  "value": "click_me_123",
-                  "url": "$DEPLOYMENT_URL",
-                  "action_id": "button-action"
+                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                 }
               }
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+
+    
       
    
 
