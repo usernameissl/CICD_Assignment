@@ -64,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Deployment URL:* ${{ env.DEPLOYMENT_URL }}"
+                  "text": "${{ env.DEPLOYMENT_URL }}"
                 },
                 "accessory": {
                   "type": "button",
