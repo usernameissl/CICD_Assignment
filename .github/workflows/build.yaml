@@ -15,13 +15,9 @@ jobs:
     steps:
     - name: Railway Deploy
       uses: bervProject/railway-deploy@0.1.2-beta
+
+    - name: Deploy
       run: railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
-
-    # - name: Deploy
-    #   run: railway up
-    #   env:
-    #     RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
