@@ -21,7 +21,7 @@ jobs:
         service: "delicate-lumber"
         
     - name: Get deployment URL
-      run: echo "DEPLOYMENT_URL=$(up url -n delicate-lumber )" >> $GITHUB_ENV
+      run: echo "DEPLOYMENT_URL=${{ secrets.RAILWAY_URL }}" >> $GITHUB_ENV
 
     - name: Send custom JSON data to Slack workflow
       id: slack
@@ -64,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Deployment URL:* https://$DEPLOYMENT_URL"
+                  "text": "*Deployment URL:* https://${{ env.DEPLOYMENT_URL }}"
                 },
                 "accessory": {
                   "type": "button",
@@ -74,7 +74,7 @@ jobs:
                     "emoji": true
                   },
                   "value": "click_me_123",
-                  "url": "https://$DEPLOYMENT_URL",
+                  "url": "https://${{ env.DEPLOYMENT_URL }}",
                   "action_id": "button-action"
                 }
               }
