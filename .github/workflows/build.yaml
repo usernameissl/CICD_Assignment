@@ -29,11 +29,11 @@ jobs:
     - name: slack-send
       uses: slackapi/slack-github-action@v1.23.0
 
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.23.0
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
+    # - name: Send GitHub Action trigger data to Slack workflow
+    #   id: slack
+    #   uses: slackapi/slack-github-action@v1.23.0
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
     
     - name: Send custom JSON data to Slack workflow
       id: slack
