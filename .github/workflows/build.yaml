@@ -30,7 +30,6 @@ jobs:
         # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
             "blocks": [
               {
                 "type": "header",
@@ -58,10 +57,6 @@ jobs:
                   {
                     "type": "mrkdwn",
                     "text": "*Repository:* \n https://github.com/${{ github.repository }}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Deployment URL:* \n https://${{ env.DEPLOYMENT_URL }}"
                   }
                 ]
               },
@@ -69,7 +64,18 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  "text": "*Deployment URL:* https://${{ env.DEPLOYMENT_URL }}"
+                },
+                "accessory": {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Go",
+                    "emoji": true
+                  },
+                  "value": "click_me_123",
+                  "url": "https://${{ env.DEPLOYMENT_URL }}",
+                  "action_id": "button-action"
                 }
               }
             ]
