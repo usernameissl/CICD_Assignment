@@ -64,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Deployment URL:* https://${{ env.DEPLOYMENT_URL }}"
+                  "text": "*Deployment URL:* https://$DEPLOYMENT_URL"
                 },
                 "accessory": {
                   "type": "button",
@@ -74,14 +74,14 @@ jobs:
                     "emoji": true
                   },
                   "value": "click_me_123",
-                  "url": "https://${{ env.DEPLOYMENT_URL }}",
+                  "url": "https://$DEPLOYMENT_URL",
                   "action_id": "button-action"
                 }
               }
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
+        SLACK_WEBHOOK_ME: ${{ secrets.SLACK_WEBHOOK_ME }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
 
