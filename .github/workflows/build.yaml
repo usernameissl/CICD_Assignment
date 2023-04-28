@@ -25,7 +25,13 @@ jobs:
       with:
         railway_token: ${{ secrets.RAILWAY_TOKEN }}
         service: "delicate-lumber"
-    
+
+    - name: Get repository URL
+      run: echo "REPO_URL=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
+
+    - name: Get deployment URL
+      run: echo "DEPLOYMENT_URL=$(up url -n <your_railway_service_name>)" >> $GITHUB_ENV
+      
     - name: Send custom JSON data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
@@ -85,11 +91,7 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       
-    - name: Get repository URL
-      run: echo "REPO_URL=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
-
-    - name: Get deployment URL
-      run: echo "DEPLOYMENT_URL=$(up url -n <your_railway_service_name>)" >> $GITHUB_ENV
+   
 
       
 
