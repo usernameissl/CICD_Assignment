@@ -4,7 +4,7 @@ name: Deploy to Railway
 on:
   push:
     branches: 
-    - 'release/v[0-9].[0-9]'
+    - 'release/v[0-9]+.[0-9]+'
     # tags:
     # - 'v+[0-9]+.[0-9]'
 
