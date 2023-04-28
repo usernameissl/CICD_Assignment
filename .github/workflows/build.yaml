@@ -14,10 +14,13 @@ jobs:
 
     steps:
     - name: Railway Deploy
-      uses: bervProject/railway-deploy@0.1.2-beta
+      uses: bervProject/railway-deploy@main
+      with:
+        railway_token: ${{ secrets.RAILWAY_TOKEN }}
+        service: "delicate-lumber"
 
-    - name: Deploy
-      run: railway up
-      env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    # - name: Deploy
+    #   run: railway up
+    #   env:
+    #     RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
