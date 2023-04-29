@@ -23,11 +23,10 @@ jobs:
     - name: Get deployment URL
       run: echo "DEPLOYMENT_URL=${{ secrets.RAILWAY_URL }}" >> $GITHUB_ENV
 
-    - name: Send custom JSON data to Slack workflow
+    - name: Send Notification to slack
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
-        # For posting a rich message using Block Kit
         payload: |
           {
             "blocks": [
