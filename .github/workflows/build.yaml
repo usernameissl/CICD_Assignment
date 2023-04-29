@@ -12,93 +12,83 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout source
-        uses: actions/checkout@v3
-
-    - name: Install application dependencies
-      run: npm ci
-
-    - name: Build
-      run: npm run build
+      uses: actions/checkout@v3
 
     - name: Railway Deploy
       uses: bervProject/railway-deploy@main
       with:
         railway_token: ${{ secrets.RAILWAY_TOKEN }}
         service: "delicate-lumber"
+        
+    - name: Get deployment URL
+      run: echo "DEPLOYMENT_URL=${{ secrets.RAILWAY_URL }}" >> $GITHUB_ENV
 
-    - name: slack-send
-      uses: slackapi/slack-github-action@v1.23.0
-
-    - name: Send GitHub Action trigger data to Slack workflow
-      id: slack
-      uses: slackapi/slack-github-action@v1.23.0
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
-    
-    - name: Send custom JSON data to Slack workflow
+    - name: Send Notification to slack
       id: slack
       uses: slackapi/slack-github-action@v1.23.0
       with:
         payload: |
-        {
-          "blocks": [
-            {
-              "type": "header",
-              "text": {
-                "type": "plain_text",
-                "text": "DipSA 56 CI/CD Submission",
-                "emoji": true
-              }
-            },
-            {
-              "type": "section",
-              "fields": [
-                {
-                  "type": "mrkdwn",
-                  "text": "*Name:* Su Latt Sandi"
-                },
-                {
-                  "type": "mrkdwn",
-                  "text": "*Email*: e1114083@u.nus.edu"
-                },
-                {
-                  "type": "mrkdwn",
-                  "text": "*Matriculation:* A0269744M"
-                },
-                {
-                  "type": "mrkdwn",
-                  "text": "*Repository:* \n $REPO_URL"
-                }
-              ]
-            },
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "$DEPLOYMENT_URL"
-              },
-              "accessory": {
-                "type": "button",
+          {
+            "blocks": [
+              {
+                "type": "header",
                 "text": {
                   "type": "plain_text",
-                  "text": "Go",
+                  "text": "DipSA 56 CI/CD Submission",
                   "emoji": true
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Name:* Su Latt Sandi"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Email*: e1114083@u.nus.edu"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Matriculation:* A0269744M"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Repository:* \n https://github.com/${{ github.repository }}"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "${{ env.DEPLOYMENT_URL }}"
                 },
-                "value": "click_me_123",
-                "url": "$DEPLOYMENT_URL",
-                "action_id": "button-action"
+                "accessory": {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Go",
+                    "emoji": true
+                  },
+                  "value": "click_me_123",
+                  "url": "${{ env.DEPLOYMENT_URL }}",
+                  "action_id": "button-action"
+                }
               }
-            }
-          ]
-        }
+            ]
+          }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        
-      - name: Get repository URL
-        run: echo "REPO_URL=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_ME }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
-      - name: Get deployment URL
-        run: echo "DEPLOYMENT_URL=$(up url -n <your_railway_service_name>)" >> $GITHUB_ENV
+
+    
+      
+   
+
+      
 
 
 
